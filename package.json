@@ -67,5 +67,6 @@
         "typescript": "^5.4.5",
         "@vscode/test-cli": "^0.0.9",
         "@vscode/test-electron": "^2.3.9"
-    }
+    },
+    "icon": "images/rpl-logo.png"
 }
