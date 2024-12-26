@@ -1,0 +1,46 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "RPL",
+    "patterns": [
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#brackets"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.rpl",
+                    "match": "\\b(pattern|patt|util|import)\\b"
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.rpl",
+                    "match": "//.*$"
+                }
+            ]
+        },
+        "brackets": {
+            "patterns": [
+                {
+                    "name": "punctuation.definition.block.begin.rpl",
+                    "match": "\\{"
+                },
+                {
+                    "name": "punctuation.definition.block.end.rpl",
+                    "match": "\\}"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.rpl"
+}
