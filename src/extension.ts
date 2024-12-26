@@ -35,6 +35,8 @@ class RPLFormatter implements vscode.DocumentFormattingEditProvider {
 }
 
 async function formatRPLWithRustfmt(text: string): Promise<string> {
+    return text;
+
     const lines = text.split('\n');
     const header = lines[0].trim();
     const blocks = text.slice(header.length).trim();
