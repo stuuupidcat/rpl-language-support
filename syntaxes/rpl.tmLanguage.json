@@ -406,7 +406,7 @@
         "attributes": {
             "comment": "attributes",
             "name": "meta.attribute.rust",
-            "begin": "(#)(\\!?)(\\[)",
+            "begin": "(#)(\\!?)(~*)(\\[)",
             "beginCaptures": {
                 "1": {
                     "name": "punctuation.definition.attribute.rust"
@@ -673,6 +673,11 @@
                     "match": "\\b(pattern|patt|util|import)\\b"
                 },
                 {
+                    "comment": "rpl reverse keywords",
+                    "name": "keyword.control.rpl.reverse",
+                    "match": "\\b(cstr|meta|mvar|diag|msg|fix)\\b"
+                },
+                {
                     "comment": "control flow keywords",
                     "name": "keyword.control.rust",
                     "match": "\\b(await|break|continue|do|else|for|if|loop|match|return|try|while|yield)\\b"
@@ -903,6 +908,19 @@
                             "name": "entity.name.type.macro.rust"
                         }
                     }
+                },
+                {
+                    "comment": "rpl_macros",
+                    "name": "meta.macro.rpl",
+                    "match": "((#[a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+                    "captures": {
+                        "2": {
+                            "name": "entity.name.function.macro.rpl"
+                        },
+                        "3": {
+                            "name": "entity.name.type.macro.rpl"
+                        }
+                    }
                 }
             ]
         },
@@ -981,6 +999,18 @@
                     "comment": "primitive types",
                     "name": "entity.name.type.primitive.rust",
                     "match": "\\b(bool|char|str)\\b"
+                },
+                {
+                    "comment": "rpl first line declarations",
+                    "match": "\\b(pattern)\\s+(_?[A-Z][A-Za-z0-9_-]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.rpl"
+                        },
+                        "2": {
+                            "name": "entity.name.type.pattern.rpl"
+                        }
+                    }
                 },
                 {
                     "comment": "trait declarations",
@@ -1184,7 +1214,7 @@
                 {
                     "comment": "variables",
                     "name": "variable.other.rust",
-                    "match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\\b"
+                    "match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_-]+\\b"
                 }
             ]
         }
