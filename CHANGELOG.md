@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.0.3] - 2024-12-27
+
+### Fixed
+
+-   Fixed RPL logo size
+
 ## [0.0.2] - 2024-12-27
 
 ### Updated
