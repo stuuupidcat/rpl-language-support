@@ -2,7 +2,7 @@
     "name": "rpl-language-support",
     "displayName": "rpl-language-support",
     "description": "A VSCode extension that provides language support for the RPL",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "rpl",
     "engines": {
         "vscode": "^1.90.0"
