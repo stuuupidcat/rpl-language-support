@@ -13,12 +13,6 @@
     "activationEvents": [],
     "main": "./dist/extension.js",
     "contributes": {
-        "commands": [
-            {
-                "command": "rpl-language-support.helloWorld",
-                "title": "Hello World"
-            }
-        ],
         "languages": [
             {
                 "id": "rpl",
