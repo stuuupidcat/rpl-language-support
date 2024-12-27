@@ -6,4 +6,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+## [0.0.2] - 2024-12-27
+
+### Updated
+
+-   Updated RPL logo
+
+## [0.0.1] - 2024-12-26
+
+### Added
+
+-   Initial release of the extension
+-   Syntax highlighting for RPL language
