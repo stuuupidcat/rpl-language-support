@@ -59,6 +59,7 @@ export class RPLNaiveParser {
         "move",
         "SizeOf",
         "switchInt",
+        "discriminant",
         "Add",
         "Sub",
         "Mul",

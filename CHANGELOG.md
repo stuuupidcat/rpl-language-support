@@ -6,6 +6,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.1.2] - 2024-12-28
+
+### Added
+
+-   Added more operators/functions to code completion
+-   Fix syntax highlighting for rust macro.
+
 ## [0.1.1] - 2024-12-28
 
 ### Added
