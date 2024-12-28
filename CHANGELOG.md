@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [0.1.1] - 2024-12-28
+
+### Added
+
+-   Added more operators/functions to code completion
+
+## [0.1.0] - 2024-12-28
+
+### Added
+
+-   Added code completion for RPL language
+
 ## [0.0.3] - 2024-12-27
 
 ### Fixed

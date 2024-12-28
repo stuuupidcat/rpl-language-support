@@ -10,8 +10,8 @@ export function registerCompleter(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.languages.registerCompletionItemProvider(
             "rpl",
-            completer
-            // ...completer.getTriggerCharacters()
+            completer,
+            ...completer.getTriggerCharacters()
         )
     );
     console.log("RPL Completer registered.");
@@ -48,10 +48,6 @@ class RPLCompleter implements vscode.CompletionItemProvider {
             ...this.generateKeywordCompletionItems(parsedData.keywords)
         );
 
-        /* completionItems.push(
-            ...this.generateFunctionCompletionItems(parsedData.functions)
-        ); */
-
         completionItems.push(
             ...this.generateMetavariableCompletionItems(
                 parsedData.metavariables
@@ -65,6 +61,12 @@ class RPLCompleter implements vscode.CompletionItemProvider {
         completionItems.push(
             ...this.generateImportCompletionItems(parsedData.imports)
         );
+
+        completionItems.push(
+            ...this.generateMacroCompletionItems(parsedData.macros)
+        );
+
+        completionItems.push(...this.generateNaiveFunctionSnippet());
 
         return completionItems;
     }
@@ -83,24 +85,6 @@ class RPLCompleter implements vscode.CompletionItemProvider {
                 vscode.CompletionItemKind.Keyword
             );
             item.detail = "RPL Keyword";
-            return item;
-        });
-    }
-
-    /**
-     * Generate function completion items
-     * @param functions Function names array
-     * @returns CompletionItem array
-     */
-    private generateFunctionCompletionItems(
-        functions: string[]
-    ): vscode.CompletionItem[] {
-        return functions.map((func) => {
-            const item = new vscode.CompletionItem(
-                func,
-                vscode.CompletionItemKind.Function
-            );
-            item.detail = "RPL Function";
             return item;
         });
     }
@@ -160,11 +144,53 @@ class RPLCompleter implements vscode.CompletionItemProvider {
     }
 
     /**
+     * Generate completion items for macros
+     * @param macros Macros array
+     * @returns CompletionItem array
+     */
+    private generateMacroCompletionItems(
+        macros: string[]
+    ): vscode.CompletionItem[] {
+        return macros.map((macro) => {
+            const item = new vscode.CompletionItem(
+                macro,
+                vscode.CompletionItemKind.Snippet
+            );
+            item.detail = "RPL Macro";
+            return item;
+        });
+    }
+
+    // generate fn _ (..) -> _ { .. }
+    private generateNaiveFunctionSnippet(): vscode.CompletionItem[] {
+        const snippet = `fn _ (..) -> _ {` + `\n    \n` + `}`;
+        const snippet_list = [snippet, `pub ` + snippet];
+        const items = snippet_list.map((snippet) => {
+            const item = new vscode.CompletionItem(
+                snippet,
+                vscode.CompletionItemKind.Snippet
+            );
+            item.insertText = new vscode.SnippetString(snippet);
+            item.detail = "RPL Function";
+            return item;
+        });
+        return items;
+    }
+
+    /**
      * Get trigger characters
      * @returns Trigger characters
      */
     public getTriggerCharacters(): string[] {
-        let list = [":", "$"];
+        let list = [
+            ":",
+            "$",
+            "@",
+            "#",
+            "(",
+            ")",
+            "|",
+        ];
         // push all alphabets
         for (let i = 65; i < 91; i++) {
             list.push(String.fromCharCode(i));

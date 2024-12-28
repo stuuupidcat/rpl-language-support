@@ -10,13 +10,26 @@ export class RPLNaiveParser {
         metavariables: string[];
         operators: string[];
         imports: string[];
+        macros: string[];
     } {
-        const keywords = this.extractKeywords(text);
-        const functions = this.extractFunctions(text);
+        // need to parse
         const metavariables = this.extractMetavariables(text);
-        const operators = this.extractOperators(text);
+        const functions = this.extractFunctions(text);
         const imports = this.extractImportedModules(text);
-        return { keywords, functions, metavariables, operators, imports };
+
+        // don't need to parse
+        const keywords = this.get_keywords();
+        const operators = this.RustOperatorList;
+        const macros = this.rplMacrosList;
+
+        return {
+            keywords,
+            functions,
+            metavariables,
+            operators,
+            imports,
+            macros,
+        };
     }
 
     readonly RPLKeywordList: string[] = ["pattern", "patt", "util", "import"];
@@ -30,31 +43,12 @@ export class RPLNaiveParser {
         "enum",
         "const",
         "use",
+        "pub",
+        "unsafe",
     ];
 
     get_keywords(): string[] {
         return this.RPLKeywordList.concat(this.RustKeywordList);
-    }
-
-    /**
-     * Extract keywords
-     * @param text RPL code text
-     * @returns Keywords array
-     */
-    private extractKeywords(text: string): string[] {
-        const keywords = new Set<string>();
-
-        let keywordList = this.RPLKeywordList.concat(this.RustKeywordList);
-
-        keywordList.forEach((keyword) => {
-            const regex = new RegExp(`\\b${keyword}\\b`, "g");
-            let match;
-            while ((match = regex.exec(text)) !== null) {
-                keywords.add(match[0]);
-            }
-        });
-
-        return Array.from(keywords);
     }
 
     readonly RustOperatorList: string[] = [
@@ -65,28 +59,20 @@ export class RPLNaiveParser {
         "move",
         "SizeOf",
         "switchInt",
+        "Add",
+        "Sub",
+        "Mul",
+        "Div",
+        "Rem",
+        "Lt",
+        "Le",
+        "Eq",
+        "Ne",
+        "Ge",
+        "Gt",
     ];
 
-    /**
-     * Extract operators
-     * @param text RPL code text
-     * @returns Operators array
-     */
-    private extractOperators(text: string): string[] {
-        const operators = new Set<string>();
-
-        let operatorList = this.RustOperatorList;
-
-        operatorList.forEach((operator) => {
-            const regex = new RegExp(`\\b${operator}\\b`, "g");
-            let match;
-            while ((match = regex.exec(text)) !== null) {
-                operators.add(match[0]);
-            }
-        });
-
-        return Array.from(operators);
-    }
+    rplMacrosList: string[] = ["without!", "or!", "[mir]"];
 
     /**
      * Extract function names
